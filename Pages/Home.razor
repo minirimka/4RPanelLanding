@@ -1,0 +1,281 @@
+@page "/"
+@inject ContactsSettings Contacts
+
+<PageTitle>4R Panel — автоматизация фарма дропа CS2</PageTitle>
+
+@* ==== Анимированный фон ==== *@
+<div class="bg-layers" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="scanlines"></div>
+    <div class="particles">
+        @for (var i = 0; i < 18; i++)
+        {
+            <span class="particle" style="@ParticleStyle(i)"></span>
+        }
+    </div>
+</div>
+
+@* ==== Навигация ==== *@
+<header class="nav">
+    <a href="#top" class="brand">
+        <span class="brand-mark">4R</span><span class="brand-2">Panel</span>
+    </a>
+    <nav class="nav-links">
+        <a href="#features">Возможности</a>
+        <a href="#how">Как это работает</a>
+    </nav>
+    <a href="#cta" class="btn btn-gold btn-sm">Получить доступ</a>
+</header>
+
+<main id="top">
+
+    @* ==== Hero ==== *@
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="eyebrow">// Автоматизация фарма CS2</span>
+            <h1 class="hero-title">
+                Еженедельный дроп CS2<br />
+                на <span class="accent">полном автопилоте</span>
+            </h1>
+            <p class="hero-sub">
+                <strong>4R Panel</strong> поднимает виртуальные машины, водит ботов по картам
+                и автоматически выбивает еженедельный дроп сразу на сотнях аккаунтов —
+                без вашего участия.
+            </p>
+            <div class="hero-cta">
+                <a href="#cta" class="btn btn-gold">Получить доступ</a>
+                <a href="#features" class="btn btn-ghost">
+                    <span class="play-ico">▶</span> Смотреть возможности
+                </a>
+            </div>
+            <div class="hero-tags">
+                <span>#ВиртуальныеМашины</span>
+                <span>#ЕженедельныйДроп</span>
+                <span>#АвтоФарм</span>
+            </div>
+        </div>
+    </section>
+
+    @* ==== Возможности ==== *@
+    <section id="features" class="features">
+        <div class="section-head">
+            <span class="eyebrow">// Возможности панели</span>
+            <h2>Полный цикл фарма в одной панели</h2>
+            <p class="section-lead">
+                От запуска виртуальных машин до продажи предметов — каждый этап автоматизирован
+                и настраивается под ваши задачи.
+            </p>
+        </div>
+
+        @* Дашборд и аналитика — собственный мини-макет в стиле сайта *@
+        <article class="feature-row">
+            <div class="feature-text">
+                <span class="feature-tag">Дашборд · аналитика</span>
+                <h3>Весь фарм как на ладони</h3>
+                <p>
+                    Живой дашборд собирает всё: сколько дропов получено, сколько заработано,
+                    средняя прибыльность аккаунта и среднее время фарма. Тренд прибыли по неделям,
+                    топ самых дорогих дропов и счётчик полученных кейсов — с фильтрами по периоду
+                    и группам аккаунтов.
+                </p>
+            </div>
+            <div class="feature-media">
+                <div class="shot dash-shot">
+                    <div class="dash-mock">
+                        <div class="dash-cards">
+                            <div class="dash-card">
+                                <span class="dc-ico">◎</span>
+                                <span class="dc-label">Всего дропов</span>
+                                <span class="dc-value">3 480</span>
+                            </div>
+                            <div class="dash-card">
+                                <span class="dc-ico dc-green">$</span>
+                                <span class="dc-label">Всего заработано</span>
+                                <span class="dc-value">$12 940</span>
+                            </div>
+                            <div class="dash-card">
+                                <span class="dc-ico dc-blue">↗</span>
+                                <span class="dc-label">Ср. прибыльность</span>
+                                <span class="dc-value">$101</span>
+                            </div>
+                        </div>
+                        <div class="dash-chart">
+                            <div class="dash-chart-head">Средняя прибыль по неделям</div>
+                            <div class="dash-bars">
+                                @foreach (var b in _dashBars)
+                                {
+                                    <span class="dash-bar" style="height:@(b)%"></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        @{
+            var idx = 1;
+        }
+        @foreach (var f in _features)
+        {
+            <article class="feature-row @(idx++ % 2 == 1 ? "reverse" : "")">
+                <div class="feature-text">
+                    <span class="feature-tag">@f.Tag</span>
+                    <h3>@f.Title</h3>
+                    <p>@f.Text</p>
+                </div>
+                <div class="feature-media">
+                    <div class="shot">
+                        <img src="img/@f.Image" alt="@f.Title" loading="lazy" />
+                    </div>
+                </div>
+            </article>
+        }
+    </section>
+
+    @* ==== Ещё в панели ==== *@
+    <section id="more" class="section">
+        <div class="section-head">
+            <span class="eyebrow">// И это ещё не всё</span>
+            <h2>Ещё в панели</h2>
+            <p class="section-lead">
+                Десятки инструментов вокруг фарма — от работы со Steam до аналитики и приватности.
+            </p>
+        </div>
+        <div class="more-grid">
+            @foreach (var m in _more)
+            {
+                <article class="more-card">
+                    <div class="more-ico">@m.Icon</div>
+                    <h3>@m.Title</h3>
+                    <p>@m.Text</p>
+                </article>
+            }
+        </div>
+    </section>
+
+    @* ==== Как это работает ==== *@
+    <section id="how" class="section">
+        <div class="section-head">
+            <span class="eyebrow">// Как это работает</span>
+            <h2>Четыре шага до автопилота</h2>
+        </div>
+        <div class="steps">
+            @foreach (var st in _steps)
+            {
+                <article class="step">
+                    <div class="step-no">@st.No</div>
+                    <h3>@st.Title</h3>
+                    <p>@st.Text</p>
+                </article>
+            }
+        </div>
+    </section>
+
+    @* ==== CTA ==== *@
+    <section id="cta" class="cta">
+        <div class="cta-inner">
+            <h2>Готовы фармить на автопилоте?</h2>
+            <p>Подключите 4R Panel, импортируйте аккаунты и получите еженедельный дроп без ручной рутины.</p>
+            <div class="contacts">
+                <span class="contacts-label">Свяжитесь с нами:</span>
+                <div class="contacts-links">
+                    <a class="contact-btn contact-btn-gold" href="@Contacts.Sales.Url" target="_blank" rel="noopener">
+                        <span class="tg-ico" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M21.94 4.6 18.9 19.02c-.23 1.01-.83 1.26-1.68.79l-4.65-3.43-2.24 2.16c-.25.25-.46.46-.94.46l.33-4.74 8.63-7.8c.38-.33-.08-.52-.58-.19l-10.67 6.72-4.6-1.44c-1-.31-1.02-1 .21-1.48l17.99-6.94c.83-.31 1.56.2 1.29 1.47Z"/></svg>
+                        </span>
+                        <span class="contact-text">
+                            <span class="contact-name">@Contacts.Sales.Label</span>
+                            <span class="contact-handle">@Contacts.Sales.Telegram</span>
+                        </span>
+                    </a>
+                    <a class="contact-btn contact-btn-ghost" href="@Contacts.News.Url" target="_blank" rel="noopener">
+                        <span class="tg-ico" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M21.94 4.6 18.9 19.02c-.23 1.01-.83 1.26-1.68.79l-4.65-3.43-2.24 2.16c-.25.25-.46.46-.94.46l.33-4.74 8.63-7.8c.38-.33-.08-.52-.58-.19l-10.67 6.72-4.6-1.44c-1-.31-1.02-1 .21-1.48l17.99-6.94c.83-.31 1.56.2 1.29 1.47Z"/></svg>
+                        </span>
+                        <span class="contact-text">
+                            <span class="contact-name">@Contacts.News.Label</span>
+                            <span class="contact-handle">@Contacts.News.Telegram</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @* ==== Подвал ==== *@
+    <footer class="footer">
+        <div class="footer-brand"><span class="brand-mark">4R</span><span class="brand-2">Panel</span></div>
+        <p class="footer-note">
+            Демонстрационный промо-лендинг. Counter-Strike® — товарный знак Valve Corporation.
+            4R Panel не аффилирован с Valve; материалы приведены в ознакомительных целях.
+        </p>
+        <p class="footer-copy">© @DateTime.Now.Year · 4R Panel · Собрано на Blazor WebAssembly</p>
+    </footer>
+
+</main>
+
+@code {
+    private record Feature(string Image, string Tag, string Title, string Text);
+    private record Step(string No, string Title, string Text);
+    private record More(string Icon, string Title, string Text);
+
+    // высоты столбцов мини-графика дашборда (в %)
+    private readonly int[] _dashBars = { 42, 58, 50, 72, 64, 88, 80, 96 };
+
+    private readonly Feature[] _features =
+    {
+        new("vm.png", "Управление VM",
+            "Виртуальные машины на автопилоте",
+            "Добавляйте и настраивайте виртуальные машины в пару кликов. Собирайте собственные сценарии фарма с гибкой кастомизацией и назначайте их машинам по расписанию — панель сама поднимает VM и следит за статусом каждой."),
+        new("accounts.png", "Менеджер аккаунтов",
+            "Все аккаунты в одном окне",
+            "Отслеживайте статус сотен аккаунтов, массово импортируйте и экспортируйте их, контролируйте готовность дропа и баланс валюты. Весь парк аккаунтов — на одной странице."),
+        new("inventory.png", "МультиИнвентарь",
+            "Полный контроль над инвентарями",
+            "Забудьте о ручном перемещении предметов: просматривайте инвентари, переносите вещи между аккаунтами, консолидируйте и продавайте по актуальным ценам CS2 в пару действий. Система маскировки запросов выдаёт активность за обычного игрока и защищает от автоматических блокировок."),
+        new("armory.png", "Armory Pass",
+            "Armory Pass на полном автомате",
+            "Автоматическая покупка, фарм и трата звёзд Armory Pass — полный цикл замкнут. То, что вручную съедает часы на десятках аккаунтов, панель выполняет сама."),
+        new("walkbot.png", "Кастомный Walkbot",
+            "Walkbot под любые карты",
+            "Тонко настраивайте маршруты движения ботов прямо на радаре карты. Мгновенно реагируйте на ротации и изменения карт и добавляйте поддержку новых — за считанные минуты."),
+    };
+
+    private readonly Step[] _steps =
+    {
+        new("01", "Импортируйте аккаунты", "Загрузите список аккаунтов в менеджер массовым импортом — сотни аккаунтов за один заход."),
+        new("02", "Настройте сценарий", "Соберите сценарий фарма под свои задачи и назначьте его виртуальным машинам по расписанию."),
+        new("03", "Запустите VM", "Панель поднимает виртуальные машины и водит ботов по картам заданными маршрутами."),
+        new("04", "Соберите дроп", "Еженедельный дроп выбивается автоматически, а инвентарём вы управляете в один клик."),
+    };
+
+    private readonly More[] _more =
+    {
+        new("⏱", "История дропов", "Полная история дропов по каждому аккаунту — с предметами, ценами и статусами выдачи."),
+        new("◷", "Планировщик заданий", "Сценарии фарма по расписанию на базе Quartz: запуск в нужное время без ручного контроля."),
+        new("≣", "Очередь задач", "Управляемая очередь задач для виртуальных машин с отслеживанием статуса каждой."),
+        new("◆", "Steam Guard и 2FA", "Работа с maFiles, генерация кодов 2FA и автоматические подтверждения Steam."),
+        new("⇄", "Трейд-ссылки и трейды", "Массовые трейды между аккаунтами, подтверждения Steam и история трейд-офферов."),
+        new("$", "Оценка и продажа", "Актуальные цены CS2 из внешних источников: оценивайте инвентарь и продавайте предметы."),
+        new("⟲", "Оффсеты без простоев", "Загрузка оффсетов (в том числе из Git) и быстрая адаптация после обновлений CS2."),
+        new("⧉", "Группы аккаунтов", "Организуйте парк аккаунтов по группам и фильтруйте статистику и задачи по ним."),
+        new("⚡", "Realtime-мониторинг", "Живой статус VM, уведомления и debug-логи в реальном времени через SignalR."),
+        new("◑", "Языки и темы", "Интерфейс на русском, английском и китайском, тёмная и светлая тема."),
+        new("⬡", "Приватность и лицензия", "Модель «один сайт = один пользователь»: панель разворачивается лично под вас."),
+        new("⟳", "Автообновления", "Управляемый процесс обновлений панели — всегда актуальная версия."),
+    };
+
+    private string ParticleStyle(int i)
+    {
+        // детерминированный псевдослучайный разброс без внешних зависимостей
+        var left = (i * 53 % 100);
+        var delay = (i * 37 % 100) / 10.0;
+        var duration = 9 + (i * 29 % 80) / 10.0;
+        var size = 2 + (i * 17 % 4);
+        return $"left:{left}%;animation-delay:{delay}s;animation-duration:{duration}s;width:{size}px;height:{size}px;";
+    }
+}

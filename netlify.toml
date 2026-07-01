@@ -1,0 +1,24 @@
+[build]
+  command = """
+    echo "=== 1. Downloading dotnet-install script ==="
+    curl -sSL https://dot.net/v1/dotnet-install.sh -o dotnet-install.sh
+    
+    echo "=== 2. Making script executable ==="
+    chmod +x dotnet-install.sh
+    
+    echo "=== 3. Installing .NET SDK 8.0 ==="
+    ./dotnet-install.sh -c 8.0 -v minimal
+    
+    echo "=== 4. Adding dotnet to PATH ==="
+    export PATH="$HOME/.dotnet:$PATH"
+    
+    echo "=== 5. Checking dotnet version ==="
+    dotnet --version
+    
+    echo "=== 6. Publishing project ==="
+    dotnet publish -c Release -o output
+    
+    echo "=== 7. Listing output folder ==="
+    ls -la output/wwwroot
+  """
+  publish = "output/wwwroot"
