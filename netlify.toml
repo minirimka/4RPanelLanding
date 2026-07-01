@@ -1,3 +1,3 @@
 [build]
-  command = "dotnet publish -c Release -o publish"
+  command = "mise install && dotnet publish -c Release -o publish"
   publish = "publish/wwwroot"
